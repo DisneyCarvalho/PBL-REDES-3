@@ -4,10 +4,12 @@ from threading import Thread
 
 
 class relogio():
-    def __init__(self, hora) -> None:
+    def __init__(self, hora,id) -> None:
+        self.id = id
         self.hora = hora
         self.drift = 1
         self.tread_drift = Thread(target=self.treadHora, daemon=True).start()
+        self.silverblack = False
 
 
     def sethora(self,hora):
