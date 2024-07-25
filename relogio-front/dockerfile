@@ -1,0 +1,27 @@
+# Dockerfile para React
+FROM node:18
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia o package.json e o package-lock.json
+COPY relogio-front/package*.json ./
+
+# Instala as dependências
+RUN npm install
+
+# Copia o código fonte do frontend
+COPY relogio-front/ .
+
+# Compila a aplicação React
+RUN npm run build
+
+# Usa um servidor HTTP para servir o conteúdo estático
+FROM nginx:alpine
+COPY --from=0 /app/build /usr/share/nginx/html
+
+# Expõe a porta 80
+EXPOSE 80
+
+# Comando para iniciar o servidor nginx
+CMD ["nginx", "-g", "daemon off;"]
