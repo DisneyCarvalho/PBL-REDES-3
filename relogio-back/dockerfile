@@ -1,0 +1,18 @@
+# Dockerfile para Flask
+FROM python:3.11-slim
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos de requisitos e instala as dependências
+COPY relogio-back/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o código fonte da aplicação
+COPY relogio-back/ .
+
+# Expõe a porta que o Flask vai rodar
+EXPOSE 5000
+
+# Comando para rodar a aplicação Flask
+CMD ["python", "main.py"]
